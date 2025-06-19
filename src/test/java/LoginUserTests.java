@@ -1,4 +1,5 @@
 import api.methods.UserMethods;
+import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import org.apache.http.HttpStatus;
@@ -27,6 +28,7 @@ public class LoginUserTests extends BaseUserTestsClass {
 
     @Test
     @DisplayName("Positive test: Login into user")
+    @Description("200 OK test for POST /api/auth/login with valid data in the request")
     public void loginUserPositiveTest() {
         UserMethods.userLogin(new UserLoginRequestBody(email, password))
                 .then()
@@ -38,6 +40,7 @@ public class LoginUserTests extends BaseUserTestsClass {
 
     @Test
     @DisplayName("Negative test: Login into user with invalid email")
+    @Description("401 UNAUTHORIZED test for POST /api/auth/login with invalid email in the request")
     public void loginUserInvalidEmailNegativeTest() {
         UserMethods.userLogin(new UserLoginRequestBody(generateEmail(), password))
                 .then()
@@ -48,6 +51,7 @@ public class LoginUserTests extends BaseUserTestsClass {
 
     @Test
     @DisplayName("Negative test: Login into user with invalid password")
+    @Description("401 UNAUTHORIZED test for POST /api/auth/login with invalid password in the request")
     public void loginUserInvalidPasswordNegativeTest() {
         UserMethods.userLogin(new UserLoginRequestBody(email, UUID.randomUUID().toString()))
                 .then()

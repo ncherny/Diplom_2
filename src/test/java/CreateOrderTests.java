@@ -1,7 +1,7 @@
 import api.methods.OrderMethods;
 import api.methods.UserMethods;
+import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
-import io.qameta.allure.junit4.Tags;
 import org.apache.http.HttpStatus;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +31,7 @@ public class CreateOrderTests extends BaseUserTestsClass {
 
     @Test
     @DisplayName("Positive test: Create order")
+    @Description("200 OK test for POST /api/orders with valid data in the request")
     public void createOrderPositiveTest() {
         ingredients = List.of(OrderMethods.getSampleIngredient());
         OrderMethods.orderCreate(new CreateOrderRequestBody(ingredients), auth)
@@ -41,6 +42,7 @@ public class CreateOrderTests extends BaseUserTestsClass {
 
     @Test
     @DisplayName("Negative test: Create order without authorization")
+    @Description("401 UNAUTHORIZED test for POST /api/orders with missing authorization in the request")
     public void createOrderNoAuthNegativeTest() {
         ingredients = List.of(OrderMethods.getSampleIngredient());
         OrderMethods.orderCreate(new CreateOrderRequestBody(ingredients), "")
@@ -52,6 +54,7 @@ public class CreateOrderTests extends BaseUserTestsClass {
 
     @Test
     @DisplayName("Negative test: Create order with empty ingredients field")
+    @Description("400 BAD REQUEST test for POST /api/orders with empty ingredients array in the request")
     public void createOrderNoIngredientsNegativeTest() {
         OrderMethods.orderCreate(new CreateOrderRequestBody(new ArrayList<>()), auth)
                 .then()
@@ -62,6 +65,7 @@ public class CreateOrderTests extends BaseUserTestsClass {
 
     @Test
     @DisplayName("Negative test: Create order without ingredients field")
+    @Description("400 BAD REQUEST test for POST /api/orders without ingredients field in the request")
     public void createOrderMissingIngredientsFieldNegativeTest() {
         OrderMethods.orderCreate(new CreateOrderRequestBody(null), auth)
                 .then()
@@ -72,6 +76,7 @@ public class CreateOrderTests extends BaseUserTestsClass {
 
     @Test
     @DisplayName("Negative test: Create order with an invalid ingredient id")
+    @Description("500 KO test for POST /api/orders with invalid ingredient id in the request")
     public void createOrderInvalidIngredientNegativeTest() {
         OrderMethods.orderCreate(new CreateOrderRequestBody(List.of(UUID.randomUUID().toString())), auth)
                 .then()

@@ -1,4 +1,5 @@
 import api.methods.UserMethods;
+import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
@@ -12,6 +13,7 @@ public class RegisterUserTests extends BaseUserTestsClass{
 
     @Test
     @DisplayName("Positive test: Register new user")
+    @Description("200 OK test for POST /api/auth/register with valid data in the request")
     public void registerUserPositiveTest() {
         UserMethods.userCreate(new User(email, password, name))
                 .then()
@@ -21,6 +23,7 @@ public class RegisterUserTests extends BaseUserTestsClass{
 
     @Test
     @DisplayName("Negative test: Register an already existing user")
+    @Description("403 FORBIDDEN test for POST /api/auth/register with using previously data of already existing user in the request")
     public void registerExistingUserNegativeTest() {
         User user = new User(email, password, name);
         UserMethods.userCreate(user);
@@ -33,6 +36,7 @@ public class RegisterUserTests extends BaseUserTestsClass{
 
     @Test
     @DisplayName("Negative test: Register new user without email")
+    @Description("401 UNAUTHORIZED test for POST /api/auth/register with missing email in the request")
     public void registerUserWithoutEmailNegativeTest() {
         UserMethods.userCreate(new User(null, password, name))
                 .then()
@@ -43,6 +47,7 @@ public class RegisterUserTests extends BaseUserTestsClass{
 
     @Test
     @DisplayName("Negative test: Register new user without password")
+    @Description("401 UNAUTHORIZED test for POST /api/auth/register with missing password in the request")
     public void registerUserWithoutPasswordNegativeTest() {
         UserMethods.userCreate(new User(email, null, name))
                 .then()
@@ -53,6 +58,7 @@ public class RegisterUserTests extends BaseUserTestsClass{
 
     @Test
     @DisplayName("Negative test: Register new user without name")
+    @Description("401 UNAUTHORIZED test for POST /api/auth/register with missing name in the request")
     public void registerUserWithoutNameNegativeTest() {
         UserMethods.userCreate(new User(email, password, null))
                 .then()

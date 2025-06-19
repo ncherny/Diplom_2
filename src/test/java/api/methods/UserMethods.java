@@ -1,12 +1,9 @@
 package api.methods;
 
 import io.qameta.allure.Step;
-import io.restassured.RestAssured;
-import io.restassured.mapper.ObjectMapperType;
 import io.restassured.response.Response;
 import ru.yandex.praktikum.page.object.models.User;
 import ru.yandex.praktikum.page.object.models.UserLoginRequestBody;
-import com.google.gson.*;
 
 import static io.restassured.RestAssured.given;
 
